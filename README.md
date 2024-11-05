@@ -28,7 +28,6 @@ To run this project, you’ll need to download the dataset subsets and place the
 
 To run the code, make sure you have Python installed. Install the necessary libraries by running the following command:
 
-'''bash
 pip install -r requirements.txt
 
 The requirements.txt file should contain the following libraries:
@@ -57,13 +56,13 @@ This will open Jupyter in your browser. Navigate to the relevant folder (e.g., 0
 
 3. Run Each Notebook in Order:
 
-01_EDA: Run all cells to perform exploratory data analysis.
-02_bias_check: Run this notebook to check for any biases in the dataset.
-03_memo: Run the memo preprocessing steps.
-04_feat_engineering: Execute this notebook to perform feature engineering.
-05_LLM: Runs language model-related code if relevant.
-06_models: Train the models as specified in this notebook.
-07_income and 08_measure_inflow: Additional analysis and measurement steps.
+01_EDA: Run all cells to perform exploratory data analysis.  
+02_bias_check: Run this notebook to check for any biases in the dataset.  
+03_memo: Run the memo preprocessing steps.  
+04_feat_engineering: Execute this notebook to perform feature engineering.  
+05_LLM: Runs language model-related code if relevant.  
+06_models: Train the models as specified in this notebook.  
+07_income and 08_measure_inflow: Additional analysis and measurement steps.  
 Each notebook should be self-contained and will reproduce the steps for data preprocessing, feature engineering, and model training as needed.
 
 4. Saving Results: Be sure to save the notebook outputs after running each cell to capture the results.
