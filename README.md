@@ -6,7 +6,7 @@ This project involves developing a credit scoring model using natural language p
 
 ### Data Privacy
 
-The dataset used in this project is derived from Prism data, which contains sensitive and proprietary information about financial transactions. Due to confidentiality agreements and privacy regulations, the full dataset cannot be shared publicly. Prism data includes detailed financial information that, if exposed, could compromise the privacy of individuals and the intellectual property of the data provider.
+The dataset used in this project is derived from Prism Data, which contains sensitive and proprietary information about financial transactions. Due to confidentiality agreements and privacy regulations, the full dataset cannot be shared publicly. Prism Data includes detailed financial information that, if exposed, could compromise the privacy of individuals and the intellectual property of the data provider.
 
 To allow for reproducibility of the methods and analysis presented in this project while respecting these confidentiality constraints, we are providing a small, representative subset of 5000 rows. This subset captures the essential characteristics of the full dataset but does not reveal any sensitive or proprietary details. By working with this sample, other researchers can replicate the data preprocessing, feature engineering, and modeling steps without requiring access to the complete, confidential dataset.
 
@@ -32,10 +32,10 @@ pip install -r requirements.txt
 
 The requirements.txt file should contain the following libraries:
 
-pandas
-numpy
-scikit-learn
-matplotlib
+pandas  
+numpy  
+scikit-learn  
+matplotlib  
 
 Additional Notes
 re: This library is used for regular expressions and is part of Python's standard library, so no additional installation is needed.
