@@ -16,18 +16,19 @@ To allow for reproducibility of the methods and analysis presented in this proje
 To run this project, you’ll need to download the dataset subsets and place them in the appropriate directory as described below.
 
 1. Download the dataset subsets:
-    Inflow Subset (2500 rows)
-    Outflow Subset (2500 rows)
-2. Save these files in the project’s data directory. Your project directory should look like this:
-├── data
-│   ├── inflow_subset_2500.csv
-│   └── outflow_subset_2500.csv
-└── main_code_directory
+    - **Inflow** Subset (2500 rows)
+    - **Outflow** Subset (2500 rows)
+2. Save these files in the project’s data directory. Your project directory should look like this:  
+├── data  
+│   ├── inflow_subset_2500.csv  
+│   └── outflow_subset_2500.csv  
+└── main_code_directory  
 
 ### Software Dependencies
 
 To run the code, make sure you have Python installed. Install the necessary libraries by running the following command:
 
+'''bash
 pip install -r requirements.txt
 
 The requirements.txt file should contain the following libraries:
@@ -70,18 +71,18 @@ Each notebook should be self-contained and will reproduce the steps for data pre
 
 ### Directory Structure
 Here’s a recommended structure for organizing the project files:
-
-project-directory/
-├── 01_EDA/
-├── 02_bias_check/
-├── 03_memo/
-├── 04_feat_engineering/
-├── 05_LLM/
-├── 06_models/
-├── 07_income/
-├── 08_measure_inflow/
-├── data/
-│   ├── inflow_subset_2500.csv
-│   └── outflow_subset_2500.csv
-├── requirements.txt
-└── README.md
+  
+project-directory/  
+├── 01_EDA/  
+├── 02_bias_check/  
+├── 03_memo/  
+├── 04_feat_engineering/  
+├── 05_LLM/  
+├── 06_models/  
+├── 07_income/  
+├── 08_measure_inflow/  
+├── data/  
+│   ├── inflow_subset_2500.csv  
+│   └── outflow_subset_2500.csv  
+├── requirements.txt  
+└── README.md  
