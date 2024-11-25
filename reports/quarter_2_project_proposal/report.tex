@@ -7,18 +7,19 @@
 %%%% Title and Authors
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{DSC Capstone LaTeX Template}
+\title{Proposal: Predicting Loan Default Probability Using Transaction Data}
 
-\author{First Author \\
-  {\tt email@ucsd.edu} \\\And
-  Second Author \\
-  {\tt email@ucsd.edu} \\\And
-  Third Author \\
-  {\tt email@ucsd.edu} \\\And
-  Fourth Author \\
-  {\tt email@ucsd.edu} \\\And
-  Mentor Name (Always Last) \\
-  {\tt email@ucsd.edu} \\}
+\author{
+\begin{tabular}[t]{ccc}
+First Author & Second Author & Third Author \\
+{\tt email@ucsd.edu} & {\tt email@ucsd.edu} & {\tt email@ucsd.edu}
+\end{tabular}
+\\[4ex]
+\begin{tabular}[t]{ccc}
+Brian Duke (Mentor) & Kyle Nero (Mentor) & Berk Ustun (Mentor)\\
+{\tt email@ucsd.edu} & {\tt email@ucsd.edu} & {\tt email@ucsd.edu}
+\end{tabular}
+}
 
 \begin{document}
 \maketitle
@@ -26,32 +27,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Abstract and Links
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-{\color{blue} Welcome to the Capstone LaTeX template! To use this template:
-\begin{itemize}
-    \item Create an Overleaf account (it's free).
-    \item Click the ``Menu" button in the top left, then click ``Copy Project."
-    \item To share the project with your group members, click ``Share" in the top menu bar, turn on link sharing, and send the edit link to your group members.
-\end{itemize}
-
-The lines you see in blue are instructions from us; \textbf{remove them} or comment them out with \texttt{\%} as you actually edit this template. \textbf{Your actual submissions should not have any blue in them!}
-
-This template mostly exists for style purposes. \textbf{Not all headings provided in the template will actually be useful for you; you can add or remove headings as you please, and the headings you end up using are up to you and your mentor.} Look to the ``Anatomy of a Scientific Paper" section of \href{https://dsc-capstone.org/lessons/04/#anatomy-of-a-scientific-paper}{Methodology Lesson 4} for guidance on which headings to use, and \href{https://dsc-capstone.org/assignments/methodology/05/}{Methodology Lesson 7} for more resources on LaTeX.
-}
-
-\begin{abstract}
-    {
-    \color{blue}
-    Replace the \texttt{lipsum[1]} in the source code with your abstract. Don't include an abstract with your Quarter 2 Proposal.
-    }
-    \textcolor{LightGrey}{\lipsum[1]}
-\end{abstract}
-
-{\color{blue} For your Quarter 1 Project, you won't link a website, but will link your code. For your Quarter 2 Proposal, you won't link either of these. For your actual Quarter 2 Project, you'll link both of these.}
-\begin{center}
-Website: \url{https://abc.github.io/} \\
-Code: \url{https://github.com/abc}
-\end{center}
 
 \maketoc
 \clearpage
@@ -62,179 +37,44 @@ Code: \url{https://github.com/abc}
 
 \section{Introduction}
 
-\section{Methods}
+In the banking industry, accurately predicting the likelihood of a loan applicant defaulting is crucial for risk management and financial stability. This project aims to develop a machine learning model that predicts default probabilities by analyzing individuals' transaction data.
 
-\section{Results}
+\section{Problem Statement}
 
-\section{Discussion}
+\subsection{For a General Audience}
 
-\section{Conclusion}
+We are working on creating a system that helps banks decide whether to grant loans to individuals. By analyzing people's spending and income patterns from their bank transactions, we can predict how likely they are to repay a loan. This helps the bank make better decisions and reduces the risk of financial loss.
 
-\section{\LaTeX{} Typesetting Examples}
+\subsection{For a Domain Expert}
 
-{\color{blue} This is not a real section; it's just here to show examples of how to format various components. Remove it before submitting!}
+The objective is to build a predictive model that estimates the probability of default for loan applicants by leveraging categorized inflow and outflow transaction data. We will engineer features related to balance fluctuations, income stability, expenditure categories, and their temporal changes. The model will be trained using appropriate machine learning algorithms, optimized for performance and efficiency.
 
-\subsection{\LaTeX{} Basics}
-
-Here's \textbf{bold} and \textit{italicized} text. Here's \texttt{text\_that\_looks.like(code)}.
+\section{Data Acquisition and Quality}
 
 \begin{itemize}
-    \item Here's a regular bulleted list item.
-    \item And another.
+    \item \textbf{Data Availability:} The necessary transaction data will be provided by our mentor, ensuring we have access to relevant and comprehensive datasets.
+    \item \textbf{Data Suitability:} The data includes categorized inflow and outflow transactions, sufficient to extract features like income levels, spending habits, and balance changes.
+    \item \textbf{Data Quality:} Preliminary assessments indicate the data is of high quality, with no missing values, suitable for training robust machine learning models.
 \end{itemize}
 
-Here's a \href{https://datascience.ucsd.edu}{hyperlink}. If you want to use a numbered list, you can experiment with:
+\section{Project Goals and Impact}
 
-\begin{enumerate}
-    \item This.
-    \item This.
-    \item And this.
-\end{enumerate}
+Investing 10 weeks in this project is justified due to its potential to significantly improve the bank's lending decisions. The project's success could lead to more reliable credit risk assessments and improved profitability. We will:
+\begin{itemize}
+    \item Engineer meaningful financial features from transaction data.
+    \item Select and train machine learning models (e.g., logistic regression, decision trees, gradient boosting) considering performance and computational efficiency.
+    \item Validate the model using appropriate metrics (e.g., ROC AUC, accuracy) to ensure reliability.
+\end{itemize}
 
-Here's how you might include a snippet of actual code:
+\section{Previous Work and Technical Approach}
 
-\begin{verbatim}
-# If you want to use syntax highlighting, look into the minted package.
-def f(x):
-    return 2 * x + 3
-\end{verbatim}
+While traditional credit scoring models exist, they might rely on limited financial indicators and may not fully utilize transactional data. Our approach aims to fill this gap by:
 
-Here's how you might format a single equation:
-
-$$\int_{-\infty}^\infty f_X(x)dx = 1$$
-
-And a chain of equations:
-
-\begin{align*}
-    \frac{1}{n}\sum_{i = 1}^n (x_i - \bar{x})^2 &= \frac{1}{n}\sum_{i = 1}^n (x_i^2 - 2x_i\bar{x} + \bar{x}^2)
-    \\ &= \frac{1}{n}\sum_{i = 1}^n x_i^2 - \frac{2}{n}\bar{x}\sum_{i = 1}^n x_i + \frac{\bar{x}^2}{n}\sum_{i = 1}^n 1
-    \\ &= \frac{1}{n}\sum_{i = 1}^n x_i^2 - 2\bar{x}^2 + \bar{x}^2
-    \\ &= \frac{1}{n}\sum_{i = 1}^n x_i^2 - \bar{x}^2
-\end{align*}
-
-
-\subsection{Figure Examples}
-
-Here are some example figures. 
-Figure \ref{fig:somefig1} presents a scatter plot.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=.65\linewidth]{figure/somefig1.pdf}
-\caption{Yes, put a few words or sentences here explaining what is in the figure.}
-\label{fig:somefig1}
-\end{figure}
-
-Figure \ref{fig:someotherfigs} presents some summaries of the performance of our model.
-The left panel of Figure \ref{fig:someotherfigs} presents something.
-The right panel of Figure \ref{fig:someotherfigs} presents some other things.
-
-\begin{figure}[htbp]
-\begin{minipage}{0.53\linewidth}
-  \centering
-  \includegraphics[width=\linewidth]{figure/somefig2.png}
-\end{minipage}
-\begin{minipage}{0.42\linewidth}
-  \centering
-  \includegraphics[width=\linewidth]{figure/somefig3.png}
-\end{minipage}
-\caption{You can put figures side-by-side as well.}
-\label{fig:someotherfigs}
-\end{figure}
-
-
-\subsection{Table Examples}
-
-Table \ref{tab:sometab1} presents some summary of the data.
-
-\begin{table}[htbp]
-\caption{Some Table Caption}
-\label{tab:sometab1}
-\resizebox{0.4\linewidth}{!}{\input{table/sometab1}}
-\end{table}
-
-Table \ref{tab:sometab2} presents some summaries of the performance of our model.
-
-\begin{table}[htbp]
-\caption{Some Other Table Caption}
-\label{tab:sometab2}
-\resizebox{0.9\linewidth}{!}{\input{table/sometab2}}
-\end{table}
-
-\subsection{Equations and Algorithms Examples}
-
-Algorithm \ref{alg:fuzzyKmeans} implements Fuzzy K-means.
-
-\begin{algorithm}
-\caption{Fuzzy K-means clustering algorithm}
-\label{alg:fuzzyKmeans}
-\begin{enumerate}
-    \item Choose primary centroids $v_{k}$
-    \item Compute the membership degree of all feature vectors in all clusters
-    \begin{equation}
-    u_{ki}  = \frac{1}{ \sum_{j=1}^K ( \frac{D^{2}(x_{i} - v_{k})}{D^{2}(x_{i} - v_{j})})^\frac{2} 
-    {m-1}}
-    \label{eq:kmeans}
-    \end{equation}
-\end{enumerate}
-\end{algorithm}
-
-Algorithm \ref{alg:net} calculates net activation.
-
-
-\begin{algorithm}
-\caption{Computing Net Activation}
-\label{alg:net}
-% \DontPrintSemicolon
-% \LinesNumbered
-\KwIn{$x_1, \ldots, x_n, w_1, \ldots, w_n$}
-\KwOut{$y$, the net activation}
-$y\leftarrow 0$\;
-\For{$i\leftarrow 1$ \KwTo $n$}{
-$y \leftarrow y + w_i*x_i$\;
-}
-\end{algorithm}
-
-In Variational Autoencoder (VAE), we directly maximize the Evidence Lower Bound (ELBO) using the following Equations \ref{eq:bla}--\ref{eq:blablabla}.
-\begin{align}
-  \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\left[\log\frac{p(\boldsymbol{x}, \boldsymbol{z})}{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\right]
-  &= \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\left[\log\frac{p_{\boldsymbol{\theta}}(\boldsymbol{x}\mid\boldsymbol{z})p(\boldsymbol{z})}{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\right] \label{eq:bla} \\
-  &= \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\left[\log p_{\boldsymbol{\theta}}(\boldsymbol{x}\mid\boldsymbol{z})\right] + \mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\left[\log\frac{p(\boldsymbol{z})}{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\right] \label{eq:blabla} \\
-  &= \underbrace{\mathbb{E}_{q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x})}\left[\log p_{\boldsymbol{\theta}}(\boldsymbol{x}\mid\boldsymbol{z})\right]}_\text{reconstruction term} - \underbrace{\mathcal{D}_{\text{KL}}(q_{\boldsymbol{\phi}}(\boldsymbol{z}\mid\boldsymbol{x}) \mid\mid p(\boldsymbol{z}))}_\text{prior matching term} \label{eq:blablabla}
-\end{align}
-
-\subsection{Inline Citation Examples}
-
-Citation in text (no parentheses): use \texttt{{\textbackslash}cite\{citekey\}}. 
-For example, \cite{breiman2011}, \cite{devlin2019bert}.
-
-Citation in parentheses: use \texttt{{\textbackslash}citep\{citekey\}}. 
-For example: \citep{vaswani2023attention}, \citep{karras2019stylebased}.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Reference / Bibliography
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\makereference
-
-{\color{blue} To edit the contents of the ``References" section, edit \texttt{reference.bib}. Many conference websites format citations in BibTeX that you can copy into \texttt{reference.bib} directly; you can also search for the paper on Google Scholar, click ``Cite", and then click ``BibTeX" (\href{https://scholar.google.com/scholar?hl=en&as_sdt=0%2C23&q=attention+is+all+you+need&btnG=#d=gs_cit&t=1700436667623&u=%2Fscholar%3Fq%3Dinfo%3A5Gohgn6QFikJ%3Ascholar.google.com%2F%26output%3Dcite%26scirp%3D0%26hl%3Den}{here}'s an example).}
-
-\bibliography{reference}
-\bibliographystyle{style/dsc180bibstyle}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Appendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\clearpage
-\makeappendix
-
-\subsection{Training Details}
-
-\subsection{Additional Figures}
-
-\subsection{Additional Tables}
-
+\begin{itemize}
+    \item \textbf{Feature Engineering:} Creating detailed features capturing income patterns, spending categories, and their temporal dynamics.
+    \item \textbf{Model Training:} Using advanced algorithms suited for tabular data, such as XGBoost or LightGBM, known for their performance in classification tasks.
+    \item \textbf{Model Evaluation:} Employing cross validation and hyperparameter tuning to optimize model performance and prevent overfitting.
+\end{itemize}
+This methodology aligns with best practices in predictive modeling and is feasible within the project timeline.
 
 \end{document}
