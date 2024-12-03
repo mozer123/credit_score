@@ -2,6 +2,14 @@
 % !BIB TS-program = bibtex
 \documentclass[12pt,letterpaper]{article}
 \usepackage{style/dsc180reportstyle} % import dsc180reportstyle.sty
+\usepackage{listings}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    showstringspaces=false,
+    breaklines=true
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Title and Authors
@@ -59,7 +67,7 @@ Code: \url{https://github.com/mozer123/credit_score/}
     }
     
 \subsection{Description of Relevant Data}
-{Data provided by PrismData which are bank transactions that are from customers that use PrismData credit products from years 2017-2023:}
+{Consumers' bank transactions provided by PrismData which are from years 2017-2023:}
 \begin{itemize}
     \item {Inflows.pqt: Contains transaction-level information on inflowing transactions (such as: paychecks, refunds, etc.)}
     \begin{figure}[H]
@@ -127,7 +135,7 @@ Columns:
         \item Outflow Data: Most common categories are GENERAL\_MERCHANDISE $(20.2\%)$, FOOD\_AND\_BEVERAGES $(18.6\%)$, and EXTERNAL\_TRANSFER $(12.4\%)$.
     \end{itemize}
 
-    {We also computed the most common merchants(“memo”) per category for both outflow and inflow dataset. The results for the inflow dataset are not displayed because all memos exactly match their categories.}
+    {We also computed the most common merchants(“memo”) per category for the outflow dataset. The results for the inflow dataset are not displayed because all memos exactly match their categories.}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{pngs/cmn_merchant.png}
@@ -137,13 +145,14 @@ Columns:
     {From Figure 4 we can see that McDonald’s, Amazon, Walmart, Uber, etc. are the most common merchants for each category they belong to. It is worth noting that the process of finding the most common merchant is based on the uncleaned “memo” column.}
 \end{enumerate}
 
-\subsection{Cleaning Memo}
-Here is how we cleaned the memo and various considerations.
+\subsection{Data Cleaning}
+{To prepare our dataset for further analysis and modeling, we cleaned the memo column.}
+{Here is how we cleaned the memo with considerations we made along the way:}
 
 \begin{itemize}
-    \item Filtered rows where the memo field differs from the category field 
+    \item Filtered rows where the memo field differs from the category field, which would allow our future models to look for more meaningful features 
     \item The resulting unique categories are: ['FOOD\_AND\_BEVERAGES', 'GENERAL\_MERCHANDISE', 'GROCERIES', 'PETS', 'TRAVEL', 'MORTGAGE', 'OVERDRAFT', 'EDUCATION', 'RENT']
-    \item Converted memo to lowercase
+    \item Converted all bank memos to lowercase
     \item Removed special characters and numbers to focus on text-based features
     \item Removed placeholders (e.g., sequences like "xxx")
     \item Trimmed extra spaces to clean up the text field further
@@ -155,19 +164,52 @@ Here is how we cleaned the memo and various considerations.
     \label{fig:enter-label}
 \end{figure}
 
-\subsection{Categorization Approaches}
-These are the various methods we tried.
-
 \subsection{Feature Engineering}
+\begin{itemize}
+    \item {Features based on Memo:}
+        \begin{itemize}
+            \item {TF-IDF}
+        \end{itemize}
+    \item {Features based on Date:}
+        \begin{itemize}
+            \item 
+                \texttt{date\_month}: Indicates the month that a transaction was processed.            
+            \item 
+                \texttt{date\_day}: Indicates the weekday that a transaction was processed. 
+                
+            \item 
+                \texttt{date\_weekend}: Indicates if a transaction was processed on a weekend. Certain transactions are never processed over Saturday/Sunday.
+        \end{itemize}
+    \item {Features based on Amount:}
+        \begin{itemize}
+            \item 
+                \texttt{is\_whole\_num:}: Indicates whether a transaction amount is a whole number. This can provide insight into the nature of the transaction—for example, most food and beverage transactions typically have fractional amounts, whereas rent payments are often whole numbers. 
+        \end{itemize}
+\end{itemize}
 
-\subsection{LLMs}
+\subsection{Models for Categorization}
+These are the various methods we tried:
+    \begin{enumerate}
+        \item {Logistic Regression as a Baseline}
+            \begin{itemize}
+                \item {Logistic Regression was used as a starting point for comparison, since it is easily to implement and prediction time is relatively fast}
+                \item {Simply used default parameters from sklearn Logistic Regression that only used TF-IDF on the memo column for features}
+            \end{itemize}
+        \item {LLMs}
+            \begin{itemize}
+                \item {DistilBERT and RoBERTa}
+            \end{itemize}
+        \item {APIs}
+            \begin{itemize}
+                \item {FastText and ...}
+            \end{itemize}
+    \end{enumerate}
 
 \subsection{Income}
 
+
 \section{Results}
-\subsection{tfidf+svm}
-Confusion matrix and accuracy of each method. Testing conditions and environments. Inference and training times.
-\subsection{other method}
+
 
 \section{Discussion}
 \subsection{Summary of Methods}
