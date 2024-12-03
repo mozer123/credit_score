@@ -12,12 +12,12 @@
 \author{
 \begin{tabular}[t]{ccc}
 First Author & Second Author & Third Author \\
-{\tt email@ucsd.edu} & {\tt email@ucsd.edu} & {\tt email@ucsd.edu}
+{\tt bdioneda@ucsd.edu} & {\tt mozer@ucsd.edu} & {\tt q9zhou@ucsd.edu}
 \end{tabular}
 \\[4ex]
 \begin{tabular}[t]{ccc}
 Brian Duke (Mentor) & Kyle Nero (Mentor) & Berk Ustun (Mentor)\\
-{\tt email@ucsd.edu} & {\tt email@ucsd.edu} & {\tt email@ucsd.edu}
+{\tt brian.duke@prismdata.com} & {\tt kyle.nero@prismdata.com} & {\tt berk@ucsd.edu}
 \end{tabular}
 }
 
@@ -37,29 +37,29 @@ Brian Duke (Mentor) & Kyle Nero (Mentor) & Berk Ustun (Mentor)\\
 
 \section{Introduction}
 
-In the banking industry, accurately predicting the likelihood of a loan applicant defaulting is crucial for risk management and financial stability. This project aims to develop a machine learning model that predicts default probabilities by analyzing individuals' transaction data.
+In the financial services industry, accurately predicting the likelihood of a loan applicant defaulting is crucial for risk management and financial stability. This project aims to develop a machine learning model that predicts default probabilities by analyzing individuals' bank transaction data.
 
 \section{Problem Statement}
 
 \subsection{For a General Audience}
 
-We are working on creating a system that helps banks decide whether to grant loans to individuals. By analyzing people's spending and income patterns from their bank transactions, we can predict how likely they are to repay a loan. This helps the bank make better decisions and reduces the risk of financial loss.
+We are working on creating a system that helps financial service providers decide whether to grant loans to individuals. By analyzing people's spending and income patterns from their bank transactions, we can predict how likely they are to repay a loan. This helps lenders make better decisions and reduces the risk of financial loss.
 
 \subsection{For a Domain Expert}
 
-The objective is to build a predictive model that estimates the probability of default for loan applicants by leveraging categorized inflow and outflow transaction data. We will engineer features related to balance fluctuations, income stability, expenditure categories, and their temporal changes. The model will be trained using appropriate machine learning algorithms, optimized for performance and efficiency.
+The objective is to build a predictive model that estimates the probability of default for loan applicants by leveraging categorized inflow and outflow transaction data. We will engineer features related to balance fluctuations, income stability, expenditure categories, and their temporal changes. The model will be trained using appropriate machine learning algorithms, optimized for performance and efficiency while keeping the model unbiased and avoiding discriminatory practices.
 
 \section{Data Acquisition and Quality}
 
 \begin{itemize}
-    \item \textbf{Data Availability:} The necessary transaction data will be provided by our mentor, ensuring we have access to relevant and comprehensive datasets.
+    \item \textbf{Data Availability:} The necessary transaction data will be provided by our mentor (PrismData), ensuring we have access to relevant and comprehensive datasets.
     \item \textbf{Data Suitability:} The data includes categorized inflow and outflow transactions, sufficient to extract features like income levels, spending habits, and balance changes.
     \item \textbf{Data Quality:} Preliminary assessments indicate the data is of high quality, with no missing values, suitable for training robust machine learning models.
 \end{itemize}
 
 \section{Project Goals and Impact}
 
-Investing 10 weeks in this project is justified due to its potential to significantly improve the bank's lending decisions. The project's success could lead to more reliable credit risk assessments and improved profitability. We will:
+Investing 10 weeks in this project is justified due to its potential to significantly improve lending decisions. The project's success could lead to more reliable credit risk assessments and improved profitability. We will:
 \begin{itemize}
     \item Engineer meaningful financial features from transaction data.
     \item Select and train machine learning models (e.g., logistic regression, decision trees, gradient boosting) considering performance and computational efficiency.
@@ -68,7 +68,7 @@ Investing 10 weeks in this project is justified due to its potential to signific
 
 \section{Previous Work and Technical Approach}
 
-While traditional credit scoring models exist, they might rely on limited financial indicators and may not fully utilize transactional data. Our approach aims to fill this gap by:
+While traditional credit scoring models exist, they might rely on limited financial indicators and may not fully utilize transactional data. This would cause a barrier between those with non-traditional credit histories from getting a loan when they would otherwise be eligible for one. Our approach aims to fill this gap by:
 
 \begin{itemize}
     \item \textbf{Feature Engineering:} Creating detailed features capturing income patterns, spending categories, and their temporal dynamics.
