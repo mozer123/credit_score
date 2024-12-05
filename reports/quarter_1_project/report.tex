@@ -72,7 +72,7 @@ Code: \url{https://github.com/mozer123/credit_score/}
     \item {Inflows.pqt: Contains transaction-level information on inflowing transactions (such as: paychecks, refunds, etc.)}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{pngs/inflows.png}
+        \includegraphics[width=0.6\textwidth]{figure/inflows.png}
         \caption{Inflows.pqt}
         \label{fig:enter-label}
     \end{figure}
@@ -80,7 +80,7 @@ Code: \url{https://github.com/mozer123/credit_score/}
     \item {Outflows.pqt: Contains transaction-level information on outflowing transactions (such as: groceries, rent, etc.)}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{pngs/outflows.png}
+        \includegraphics[width=0.6\textwidth]{figure/outflows.png}
         \caption{Outflows.pqt}
         \label{fig:enter-label}
     \end{figure}
@@ -126,7 +126,7 @@ Columns:
     \item{\textbf{Category Distribution:}}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=1.0\textwidth]{pngs/category_dist.png}
+        \includegraphics[width=1.0\textwidth]{figure/category_dist.png}
         \caption{Category Distribution}
         \label{fig:enter-label}
     \end{figure}
@@ -138,7 +138,7 @@ Columns:
     {We also computed the most common merchants(“memo”) per category for the outflow dataset. The results for the inflow dataset are not displayed because all memos exactly match their categories.}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.4\textwidth]{pngs/cmn_merchant.png}
+        \includegraphics[width=0.4\textwidth]{figure/cmn_merchant.png}
         \caption{Most Common Merchant per Category - Outflow Dataset}
         \label{fig:enter-label}
     \end{figure}
@@ -159,7 +159,7 @@ Columns:
 \end{itemize}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\textwidth]{pngs/memo_clean.png}
+    \includegraphics[width=1.0\textwidth]{figure/memo_clean.png}
     \caption{Original Memos vs Cleaned Memos}
     \label{fig:enter-label}
 \end{figure}
@@ -215,13 +215,13 @@ These are the various methods we tried using as a way to categorize an individua
                 \item {DistilBERT is a lightweight transformer model derived from BERT, designed to retain most of BERT’s accuracy while being faster and more efficient. It utilizes deep contextual embeddings to understand semantic relationships in text, making it effective for text classification tasks.}
                 \item {The dataset was reduced to 12,500 rows due to computational resource constraints (see Table 1). DistilBERT was fine-tuned for the task using the Hugging Face library, with hyperparameters including 3 epochs of training. The model leveraged pre-trained weights and adapted them to the transaction classification task.}
             \end{itemize}
-        \item {Nemotron 70Bl}
+        \item {Few Shot Learning}
             \begin{itemize}
                 \item {We utilized the open-source model Nemotron 70B from NVIDIA. Each prompt included five examples demonstrating the desired response format and predefined category options. Inference was conducted via an API service rather than being hosted locally.}
             \end{itemize}
-        \item {Llama-3.2-1B}
+        \item {Fine-Tuning}
             \begin{itemize}
-                \item{We employed an instructable version of the open-source model Llama-3.2-1B from Meta for this task. To optimize the fine-tuning process, we leveraged Unsloth, a library designed to enhance processing speed and reduce memory consumption. The fine-tuning was conducted in the Google Colab environment.}
+                \item{We employed an instruct version of the open-source model Llama-3.2-1B from Meta for this task. To optimize the fine-tuning process, we leveraged Unsloth, a library designed to enhance processing speed and reduce memory consumption. The fine-tuning was conducted in the Google Colab environment.}
             \end{itemize}
     \end{enumerate}
 
@@ -241,7 +241,7 @@ These are the various methods we tried using as a way to categorize an individua
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{pngs/income.png}
+    \includegraphics[width=0.5\textwidth]{figure/income.png}
     \caption{Income Categories Distribution}
     \label{fig:enter-label}
 \end{figure}
@@ -283,11 +283,11 @@ Overall, FastText stands out as the best-performing model in terms of accuracy, 
 
 \subsection{Thoughts on LLMs}
 
-Ideally, we aim for a local solution that offers high accuracy and fast inference while minimizing computational resource requirements. Although longer training times can be a drawback during testing, this is more acceptable compared to other factors, as the few-shot training premodel will only need to be trained once in the production phase.
+Ideally, we aim for a local solution that offers high accuracy and fast inference while minimizing computational resource requirements. Although longer training times can be a drawback during testing different parameters, this is more acceptable compared to other factors, as the model will only need to be trained once in the production phase.
 
- While inference speed may not be optimal in our scenario, hosting the model locally on a supercomputer can significantly improve processing capabilities. However, accuracy remains a concern, as the LLM often generates generic responses based on its pre-trained knowledge. For instance, we observed it predicting "GENERAL\_MERCHANDISE" more frequently than appropriate.
+ While inference speeds we have may reflect that LLM solutions are not useful to work with real data in a timely manner, hosting the model locally on a supercomputer can significantly improve processing capabilities. However, accuracy remains a concern, as the LLM with few-shot learning often generates generic responses based on its pre-trained knowledge. For instance, we observed it predicting "GENERAL\_MERCHANDISE" more frequently than appropriate.
  
-Fine-tuning the LLMs could address the accuracy issues associated with few-shot training. However, achieving higher accuracy has been difficult due to the substantial computational resources required for fine-tuning. Despite this, the approach demonstrates promise: even when we utilized a much smaller model, it performed comparably to a larger model without fine-tuning.
+Fine-tuning the LLMs could address the accuracy issues associated with few-shot learning. However, achieving higher accuracy has been difficult due to the substantial computational resources required for fine-tuning. Despite this, the approach demonstrates promise: even when we utilized a much smaller model, it performed comparably to a larger model without fine-tuning.
 
 
 \section{Conclusion}
