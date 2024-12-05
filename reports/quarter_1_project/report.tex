@@ -188,22 +188,44 @@ Columns:
 \end{itemize}
 
 \subsection{Models for Categorization}
-These are the various methods we tried:
+These are the various methods we tried using as a way to categorize an individual's bank transactions. We believe that being able to accurately categorize one’s bank transactions helps us gain insight into people’s financial behavior. How do they spend their money? What do they spend it on? By answering these questions, we aim to build a clearer picture of an individual’s financial stability and habits, ultimately enabling a more reliable assessment of their creditworthiness.
+\paragraph{Traditional Classifiers:}
     \begin{enumerate}
         \item {Logistic Regression as a Baseline}
             \begin{itemize}
                 \item {Logistic Regression was used as a starting point for comparison, since it is easily to implement and prediction time is relatively fast}
                 \item {Simply used default parameters from sklearn Logistic Regression that only used TF-IDF on the memo column for features}
             \end{itemize}
-        \item {LLMs}
+        \item {FastText}
             \begin{itemize}
-                \item {DistilBERT and RoBERTa}
+                \item {FastText is a lightweight and efficient text classification library by Facebook. It treats text data as a bag of words or bag of n-grams, providing a simple but effective approach for capturing word relationships and context}
+                \item {We processed the data to align with the format required by the FastText model and trained the model with hyperparameters (epoch=30, lr=0.1, wordNgrams=2) optimized through grid-search and cross-validation}
             \end{itemize}
-        \item {APIs}
+        \item {XGBoost}
             \begin{itemize}
-                \item {FastText and ...}
+                \item{We also attempted our predictive task with the gradient-boosted decision tree model from the \textit{xgboost} library. XGBoost excels in structured data tasks. It captures complex feature interactions and is optimized for speed and accuracy. The XGBoost classifier was trained using TF-IDF features derived from the memo text data.}
             \end{itemize}
     \end{enumerate}
+
+\paragraph{Large Language Models (LLMs):}
+
+\begin{enumerate}
+        \item {DistilBERT}
+            \begin{itemize}
+                \item {DistilBERT is a lightweight transformer model derived from BERT, designed to retain most of BERT’s accuracy while being faster and more efficient. It utilizes deep contextual embeddings to understand semantic relationships in text, making it effective for text classification tasks.}
+                \item {The dataset was reduced to 12,500 rows due to computational resource constraints. DistilBERT was fine-tuned for the task using the Hugging Face library, with hyperparameters including 3 epochs of training. The model leveraged pre-trained weights and adapted them to the transaction classification task.}
+            \end{itemize}
+        \item {Nemotron 70Bl}
+            \begin{itemize}
+                \item {We utilized the open-source model Nemotron 70B from NVIDIA. Each prompt included five examples demonstrating the desired response format and predefined category options. Inference was conducted via an API service rather than being hosted locally.}
+            \end{itemize}
+        \item {Llama-3.2-1B}
+            \begin{itemize}
+                \item{We employed an instructable version of the open-source model Llama-3.2-1B from Meta for this task. To optimize the fine-tuning process, we leveraged Unsloth, a library designed to enhance processing speed and reduce memory consumption. The fine-tuning was conducted in the Google Colab environment.}
+            \end{itemize}
+    \end{enumerate}
+
+
 
 \subsection{Income}
 
@@ -211,39 +233,50 @@ These are the various methods we tried:
 \section{Results}
 
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{2.5cm}|p{1.7cm}|p{3.5cm}|p{2.5cm}|p{1.7cm}|}
+\hline
+\textbf{Model}           & \textbf{Training Dataset Size} & \textbf{Training Time (s)} & \textbf{Inference (predictions per second)} & \textbf{Testing Dataset Size} & \textbf{Accuracy (\%)} \\ \hline
+Logistic Regression      & 979,839                        & 32.8                       & 326,613                                     & 326,613                      & 96.45                 \\ \hline
+FastText                 & 969,666                        & \textbf{19.1}                       & \textbf{336,786}                                     & 336,786                      & \textbf{96.88}                 \\ \hline
+XGBoost                  & 969,666                        & 30.9                       & 300,000                                     & 336,786                      & 91.98                 \\ \hline
+DistilBERT               & 12,500                         & 600                       & 54.67                                       & 12,500                       & 89.56                 \\ \hline
+Nemotron 70B             & 5                              & N/A                        & 0.44                                        & 100                          & 78.00                    \\ \hline
+Llama-3.2-1 B            & 1,000                          & 72                         & 3.04                                        & 100                          & 75.00                    \\ \hline
+\end{tabular}
+\caption{Performance comparison of models on transaction categorization.}
+\label{tab:model_comparison}
+\end{table}
+
+
+
+
+
 \section{Discussion}
-\subsection{Summary of Methods}
-Table summarizing all factors in choosing the best method.
+\subsection{Traditional Classifiers}
 
-Table \ref{tab:sometab1} presents some summary of the data.
+The performance comparison between Logistic Regression, FastText, and XGBoost reveals interesting trade-offs among accuracy, training time, and inference speed. FastText achieved the highest accuracy at 96.88\%, outperforming both Logistic Regression (96.45\%) and XGBoost (91.98\%).
 
-\begin{table}[htbp]
-\caption{Some Table Caption}
-\label{tab:sometab1}
-\resizebox{0.4\linewidth}{!}{\input{table/sometab1}}
-\end{table}
+FastText had the fastest training time at 19.1 seconds, making it highly efficient for large-scale datasets like this one. Its inference speed was also the fastest, processing approximately 336,786 predictions per second.
 
-Table \ref{tab:sometab2} presents some summaries of the performance of our model.
+XGBoost lagged behind in accuracy at 91.98\% and had a slower inference speed of 300,000 predictions per second, despite a reasonable training time of 30.9 seconds.
 
-\begin{table}[htbp]
-\caption{Some Other Table Caption}
-\label{tab:sometab2}
-\resizebox{0.9\linewidth}{!}{\input{table/sometab2}}
-\end{table}
+Overall, FastText stands out as the best-performing model in terms of accuracy, speed, and scalability, making it an excellent choice for text-based transaction classification tasks.
 
-\subsection{}
-This is the best model overall
-but these are also useful in these constraints.
+
+\subsection{Thoughts on LLMs}
+
+Ideally, we aim for a local solution that offers high accuracy and fast inference while minimizing computational resource requirements. Although longer training times can be a drawback during testing, this is more acceptable compared to other factors, as the few-shot training premodel will only need to be trained once in the production phase.
+
+ While inference speed may not be optimal in our scenario, hosting the model locally on a supercomputer can significantly improve processing capabilities. However, accuracy remains a concern, as the LLM often generates generic responses based on its pre-trained knowledge. For instance, we observed it predicting "GENERAL\_MERCHANDISE" more frequently than appropriate.
+ 
+Fine-tuning the LLMs could address the accuracy issues associated with few-shot training. However, achieving higher accuracy has been difficult due to the substantial computational resources required for fine-tuning. Despite this, the approach demonstrates promise: even when we utilized a much smaller model, it performed comparably to a larger model without fine-tuning.
+
 
 \section{Conclusion}
 
-\subsection{Inline Citation Examples}
-
-Citation in text (no parentheses): use \texttt{{\textbackslash}cite\{citekey\}}. 
-For example, \cite{breiman2011}, \cite{devlin2019bert}.
-
-Citation in parentheses: use \texttt{{\textbackslash}citep\{citekey\}}. 
-For example: \citep{vaswani2023attention}, \citep{karras2019stylebased}.
+Our analysis demonstrates that FastText is the most effective solution for transaction categorization, excelling in accuracy (96.88\%), speed, and scalability. Logistic Regression provided a reliable baseline, while XGBoost, despite its utility in structured data tasks, underperformed in this context. Large Language Models showed potential but were limited by high computational costs and slower inference speeds. Overall, FastText offers the best balance of performance and efficiency for this task, while future improvements in LLM fine-tuning may further enhance their applicability.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
