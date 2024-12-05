@@ -59,9 +59,9 @@ Code: \url{https://github.com/mozer123/credit_score/}
     This project leverages bank data from 2017-2023 to develop a fairer, non-discriminatory model for assessing credit risk. By categorizing individual bank transactions and predicting personal income as alternative indicators, our approach emphasizes unbiased and responsible credit assessments, aiming to expand equal access to credit.
     }
 \subsection{Literature Review and Discussion of Prior Work}
-    {In their review, Markov, Seleznyova, and Lapshin (2022) discuss the evolving trends in credit scoring methodologies, highlighting the shift from traditional statistical methods, such as logistic regression, toward more complex machine learning models, including decision trees, neural networks, and ensemble methods. The authors emphasize the growing popularity of explainable AI (XAI) in credit scoring, as financial institutions are required to provide transparency in their decision-making processes, especially in highly regulated environments. They also underscore the importance of considering biases in model training, especially when alternative data sources are involved, as biased data can lead to discriminatory credit outcomes. This work sets the stage for understanding the inherent challenges in balancing model accuracy and fairness, particularly when advanced techniques are employed.
+    {In their review, \cite{markov2022credit} discuss the evolving trends in credit scoring methodologies, highlighting the shift from traditional statistical methods, such as logistic regression, toward more complex machine learning models, including decision trees, neural networks, and ensemble methods. The authors emphasize the growing popularity of explainable AI (XAI) in credit scoring, as financial institutions are required to provide transparency in their decision-making processes, especially in highly regulated environments. They also underscore the importance of considering biases in model training, especially when alternative data sources are involved, as biased data can lead to discriminatory credit outcomes. This work sets the stage for understanding the inherent challenges in balancing model accuracy and fairness, particularly when advanced techniques are employed.
         
-    Litty (2024) explores the integration of alternative data sources, such as social media behavior, mobile phone usage patterns, and even psychometric data, in credit risk assessment models. These sources offer the potential to improve credit scoring accuracy, especially for individuals with limited or no traditional credit history, thus addressing the issue of financial inclusion. Litty’s work outlines the effectiveness of AI-powered models in capturing complex relationships within these unstructured data sources, which are often ignored in conventional credit scoring models. Furthermore, Litty’s research identifies the potential risks of privacy invasion and data security when using personal and behavioral data, suggesting that such risks must be carefully managed to avoid ethical concerns.
+    \cite{litty2024beyond} explores the integration of alternative data sources, such as social media behavior, mobile phone usage patterns, and even psychometric data, in credit risk assessment models. These sources offer the potential to improve credit scoring accuracy, especially for individuals with limited or no traditional credit history, thus addressing the issue of financial inclusion. Litty’s work outlines the effectiveness of AI-powered models in capturing complex relationships within these unstructured data sources, which are often ignored in conventional credit scoring models. Furthermore, Litty’s research identifies the potential risks of privacy invasion and data security when using personal and behavioral data, suggesting that such risks must be carefully managed to avoid ethical concerns.
     
     Together, these studies highlight the transformative role of AI in credit scoring, offering insights into both the benefits and challenges of these new methods. Unlike traditional models that rely on static financial data, our approach leverages natural language processing (NLP) on transaction memos and additional data sources to develop a more holistic view of consumer behavior. By focusing on these unstructured transaction details, we aim to extract latent features that may reveal patterns of financial responsibility not captured in traditional scoring systems. This approach not only improves the granularity of credit assessment but also offers a pathway to more personalized credit models, contributing to ongoing efforts in making credit scoring more inclusive and responsive to diverse financial behaviors.
     }
@@ -142,7 +142,7 @@ Columns:
         \caption{Most Common Merchant per Category - Outflow Dataset}
         \label{fig:enter-label}
     \end{figure}
-    {From Figure 4 we can see that McDonald’s, Amazon, Walmart, Uber, etc. are the most common merchants for each category they belong to. It is worth noting that the process of finding the most common merchant is based on the uncleaned “memo” column.}
+    {We can see that McDonald’s, Amazon, Walmart, Uber, etc. are the most common merchants for each category they belong to (see Figure 4). It is worth noting that the process of finding the most common merchant is based on the uncleaned “memo” column.}
 \end{enumerate}
 
 \subsection{Data Cleaning}
@@ -168,7 +168,7 @@ Columns:
 \begin{itemize}
     \item {Features based on Memo:}
         \begin{itemize}
-            \item {TF-IDF}
+            \item {TF-IDF}: Process that helps pick out the most distinctive and meaningful words from the bank memos. Some words are present in certain transaction types. For example, the term "nsf" (which stands for "non-sufficient funds") is only present in OVERDRAFT transactions
         \end{itemize}
     \item {Features based on Date:}
         \begin{itemize}
@@ -213,7 +213,7 @@ These are the various methods we tried using as a way to categorize an individua
         \item {DistilBERT}
             \begin{itemize}
                 \item {DistilBERT is a lightweight transformer model derived from BERT, designed to retain most of BERT’s accuracy while being faster and more efficient. It utilizes deep contextual embeddings to understand semantic relationships in text, making it effective for text classification tasks.}
-                \item {The dataset was reduced to 12,500 rows due to computational resource constraints. DistilBERT was fine-tuned for the task using the Hugging Face library, with hyperparameters including 3 epochs of training. The model leveraged pre-trained weights and adapted them to the transaction classification task.}
+                \item {The dataset was reduced to 12,500 rows due to computational resource constraints (see Table 1). DistilBERT was fine-tuned for the task using the Hugging Face library, with hyperparameters including 3 epochs of training. The model leveraged pre-trained weights and adapted them to the transaction classification task.}
             \end{itemize}
         \item {Nemotron 70Bl}
             \begin{itemize}
@@ -226,37 +226,53 @@ These are the various methods we tried using as a way to categorize an individua
     \end{enumerate}
 
 
+\vspace{10cm} 
 
 \subsection{Income}
+{We analyzed the inflows dataset further to investigate consumer’s income. Doing this would help us answer questions like: Does this person have a steady inflow of money to be able to pay their bills? Do they have an income in the first place? \\ \\ Major sources of income that we want to utilize later:}
+\begin{itemize}
+    \item {DEPOSIT}: 20.2\%
+    \item {EXTERNAL\_TRANSFERS}: 51.5\%
+    \item {INVESTMENT\_INCOME}: 5.7\%
+    \item {OTHER\_BENEFITS}: 2.5\%
+    \item {PAYCHECK}: 19.5\%
+    \item {UNEMPLOYMENT\_BENEFITS}: 0.6\%
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{pngs/income.png}
+    \caption{Income Categories Distribution}
+    \label{fig:enter-label}
+\end{figure}
+
 
 
 \section{Results}
 
+\vspace{0.5cm} 
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|l|p{2.5cm}|p{1.7cm}|p{3.5cm}|p{2.5cm}|p{1.7cm}|}
-\hline
-\textbf{Model}           & \textbf{Training Dataset Size} & \textbf{Training Time (s)} & \textbf{Inference (predictions per second)} & \textbf{Testing Dataset Size} & \textbf{Accuracy (\%)} \\ \hline
-Logistic Regression      & 979,839                        & 32.8                       & 326,613                                     & 326,613                      & 96.45                 \\ \hline
-FastText                 & 969,666                        & \textbf{19.1}                       & \textbf{336,786}                                     & 336,786                      & \textbf{96.88}                 \\ \hline
-XGBoost                  & 969,666                        & 30.9                       & 300,000                                     & 336,786                      & 91.98                 \\ \hline
-DistilBERT               & 12,500                         & 600                       & 54.67                                       & 12,500                       & 89.56                 \\ \hline
-Nemotron 70B             & 5                              & N/A                        & 0.44                                        & 100                          & 78.00                    \\ \hline
-Llama-3.2-1 B            & 1,000                          & 72                         & 3.04                                        & 100                          & 75.00                    \\ \hline
-\end{tabular}
-\caption{Performance comparison of models on transaction categorization.}
-\label{tab:model_comparison}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{2.5cm}|p{1.7cm}|p{3.5cm}|p{2.5cm}|p{1.7cm}|}
+    \hline
+    \textbf{Model}           & \textbf{Training Dataset Size} & \textbf{Training Time (s)} & \textbf{Inference (predictions per second)} & \textbf{Testing Dataset Size} & \textbf{Accuracy (\%)} \\ \hline
+    Logistic Regression      & 979,839                        & 32.8                       & 326,613                                     & 326,613                      & 96.45                 \\ \hline
+    FastText                 & 969,666                        & 19.1              & 336,786                            & 336,786                     & 96.88        \\ \hline
+    XGBoost                  & 969,666                        & 30.9                       & 300,000                                     & 336,786                      & 91.98                 \\ \hline
+    DistilBERT               & 12,500                         & 600                        & 54.67                                       & 12,500                       & 89.56                 \\ \hline
+    Nemotron 70B             & 5                              & N/A                        & 0.44                                        & 100                          & 78.00                 \\ \hline
+    Llama-3.2-1 B            & 1,000                          & 72                         & 3.04                                        & 100                          & 75.00                 \\ \hline
+    \end{tabular}
+    \caption{Performance comparison of models on transaction categorization.}
+    \label{tab:model_comparison}
 \end{table}
-
-
-
 
 
 \section{Discussion}
 \subsection{Traditional Classifiers}
 
-The performance comparison between Logistic Regression, FastText, and XGBoost reveals interesting trade-offs among accuracy, training time, and inference speed. FastText achieved the highest accuracy at 96.88\%, outperforming both Logistic Regression (96.45\%) and XGBoost (91.98\%).
+The performance comparison between Logistic Regression, FastText, and XGBoost reveals interesting trade-offs among accuracy, training time, and inference speed. As seen in Table 1, FastText achieved the highest accuracy at 96.88\%, outperforming both Logistic Regression (96.45\%) and XGBoost (91.98\%).
 
 FastText had the fastest training time at 19.1 seconds, making it highly efficient for large-scale datasets like this one. Its inference speed was also the fastest, processing approximately 336,786 predictions per second.
 
@@ -275,33 +291,18 @@ Fine-tuning the LLMs could address the accuracy issues associated with few-shot 
 
 
 \section{Conclusion}
+Our study highlights FastText as the most effective model for categorizing financial transactions, achieving superior accuracy (96.88\%), efficient training, and rapid inference compared to Logistic Regression and XGBoost. While Logistic Regression provided a reliable baseline, XGBoost, despite its utility in structured data tasks, underperformed in this context. Large Language Models (LLMs) demonstrated potential, but their practical application was limited by high computational costs and slower inference speeds.  
 
-Our analysis demonstrates that FastText is the most effective solution for transaction categorization, excelling in accuracy (96.88\%), speed, and scalability. Logistic Regression provided a reliable baseline, while XGBoost, despite its utility in structured data tasks, underperformed in this context. Large Language Models showed potential but were limited by high computational costs and slower inference speeds. Overall, FastText offers the best balance of performance and efficiency for this task, while future improvements in LLM fine-tuning may further enhance their applicability.
+Compared to prior works, our results align with \cite{markov2022credit}, who noted the growing efficiency of advanced machine learning models over traditional approaches like Logistic Regression in financial applications. However, unlike their findings on decision tree-based models, XGBoost underperformed in our task, likely due to its inability to fully leverage the unstructured text features in transaction memos. Similarly, while \cite{litty2024beyond} emphasized the transformative role of AI-powered models incorporating alternative data sources, our work demonstrates that simpler models like FastText can outperform resource-intensive methods such as LLMs. Additionally, our focus on categorizing financial transactions based on bank memos complements Litty’s findings by providing a practical and interpretable method for assessing financial behavior.  
 
+However, our approach is not without limitations. Our reliance on pre-defined transaction categories may miss subtle patterns in unstructured financial data. Furthermore, the computational constraints prevented extensive exploration of LLM fine-tuning, which may have improved their accuracy and generalizability. Finally, while FastText offers excellent scalability, its simplistic representations may not capture nuanced semantic relationships as effectively as LLMs.  
 
+Future work should focus on integrating alternative features, such as behavioral patterns or temporal trends, to enhance model performance. For instance, expanding the analysis of the income section could provide valuable insights. By measuring the regularity of inflows—such as the consistency, frequency, and source of transactions—we can better determine whether a particular transaction qualifies as actual income. This refinement could improve the reliability of creditworthiness assessments by distinguishing between steady income streams and irregular inflows.
+
+ Researchers building on our work could explore hybrid models that merge FastText's speed and interpretability with the contextual depth of LLMs, effectively bridging the gap between efficiency and complexity for more robust transaction classification. Incorporating income regularity analysis into these hybrid models could further enhance their predictive capabilities, offering deeper and more nuanced financial insights.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Reference / Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\makereference
-
-{\color{blue} To edit the contents of the ``References" section, edit \texttt{reference.bib}. Many conference websites format citations in BibTeX that you can copy into \texttt{reference.bib} directly; you can also search for the paper on Google Scholar, click ``Cite", and then click ``BibTeX" (\href{https://scholar.google.com/scholar?hl=en&as_sdt=0%2C23&q=attention+is+all+you+need&btnG=#d=gs_cit&t=1700436667623&u=%2Fscholar%3Fq%3Dinfo%3A5Gohgn6QFikJ%3Ascholar.google.com%2F%26output%3Dcite%26scirp%3D0%26hl%3Den}{here}'s an example).}
-
 \bibliography{reference}
 \bibliographystyle{style/dsc180bibstyle}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Appendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\clearpage
-\makeappendix
-
-\subsection{Training Details}
-
-\subsection{Additional Figures}
-
-\subsection{Additional Tables}
-
-
 \end{document}
