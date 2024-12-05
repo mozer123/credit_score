@@ -77,7 +77,7 @@ This will open Jupyter in your browser. Navigate to the relevant notebook files 
    - `04_feat_engineering.ipynb`: Execute this notebook to perform feature engineering.
    - `05_LLM.ipynb`: Runs language model-related code if relevant.
    - `06_models.ipynb`: Train the models as specified in this notebook.
-   - `07_income.ipynb` and `08_measure_inflow.ipynb`: Additional analysis and measurement steps.
+   - `07_income.ipynb` and `08_measure_inflow.ipynb`: Initial exploration and analysis on the inflow dataset.
 
 Each notebook should be self-contained and will reproduce the steps for data preprocessing, feature engineering, and model training as needed.
 
